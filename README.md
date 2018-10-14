@@ -1,6 +1,8 @@
 # TBK-ControlTool
 
-Tener instalado Node.js y MongoDB
+Instalar Node.js y MongoDB previamente
+
+
 
 Instrucciones:
 npm install express mongoose ejs morgan
@@ -8,5 +10,9 @@ npm install express mongoose ejs morgan
 
 npm i nodemon -D
 
+
+
 Iniciar servidor node: npm run dev
+
+
 Iniciar mongodb: mongod
