@@ -1,7 +1,7 @@
 {
   "name": "tbk-controltool",
   "version": "1.0.0",
-  "description": "",
+  "description": "Instalar Node.js y MongoDB previamente",
   "main": "index.js",
   "scripts": {
     "start": "node src/app.js",
@@ -18,5 +18,13 @@
   },
   "devDependencies": {
     "nodemon": "^1.18.4"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luiscanales/TBK-ControlTool.git"
+  },
+  "bugs": {
+    "url": "https://github.com/luiscanales/TBK-ControlTool/issues"
+  },
+  "homepage": "https://github.com/luiscanales/TBK-ControlTool#readme"
 }
