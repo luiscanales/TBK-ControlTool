@@ -14,6 +14,10 @@ router.get('/',async (req,res)=>{
     });
 });
 
+router.get('/about', function(req,res){
+    res.render('_about');
+});
+
 router.post('/add', async (req,res)=>{
     const task = new Task(req.body);
     await task.save();

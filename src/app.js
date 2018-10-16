@@ -7,7 +7,7 @@ const app = express();
 
 //conexión a base de datos
 mongoose.connect('mongodb://localhost/tbk-controltool')
-    .then(db => console.log('Db connected'))
+    .then(db => console.log('Base de datos conectada exitosamente.'))
     .catch(err => console.log(err));
 
 
@@ -28,5 +28,5 @@ app.use('/',indexRoutes);
 
 //starting the server
 app.listen(app.get('port'), ()=>{
-    console.log(`Server on port ${app.get('port')}`);
+    console.log(`Servidor conectado en puerto ${app.get('port')}`);
 });
