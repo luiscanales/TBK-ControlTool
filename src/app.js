@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const app = express();
 
 //conexión a base de datos
-mongoose.connect('mongodb://localhost/tbk-controltool')
+mongoose.connect('mongodb://localhost/tbk-controltool', { useNewUrlParser: true }, )
     .then(db => console.log('Db connected'))
     .catch(err => console.log(err));
 
