@@ -5,6 +5,9 @@ const Task = require('../models/task')
 
 // Rutas, se adjuntan unas como ejemplo...
 
+router.get('/register', function(req,res){
+    res.render('partials/_register');
+});
 
 router.get('/',async (req,res)=>{
     const tasks = await Task.find();
@@ -15,7 +18,19 @@ router.get('/',async (req,res)=>{
 });
 
 router.get('/about', function(req,res){
-    res.render('_about');
+    res.render('partials/_about');
+});
+
+router.get('/', function(req,res){
+    res.render('index');
+});
+
+router.get('/login', function(req,res){
+    res.render('partials/_login');
+});
+
+router.get('/desvinculacion', function(req,res){
+    res.render('partials/_modDesvinculacion')
 });
 
 router.post('/add', async (req,res)=>{
