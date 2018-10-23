@@ -13,8 +13,8 @@ router.post('/register', async(req, res,next) => {
     
     user = new User({
         _id: new mongoose.Types.ObjectId(),
-        name: req.body.nombre,
-        username: req.body.usuario,
+        name: req.body.name,
+        username: req.body.username,
         email: req.body.email,
         // phone: req.body.phone,
         cargo: req.body.cargo,
@@ -37,20 +37,17 @@ router.post('/register', async(req, res,next) => {
         
 });
 
-router.delete('/:userID', (req, res, next) =>{
-    //let user = await User.findOne({email: req.body.email});
-    //if (user) return res.status(400).send('Usuario ya registrado.');
-    
+router.delete('/:userID', (req, res, next) =>{    
     User.remove({_id: req.params.userID})
         .exec()
         .then(result => {
             res.status(200).json({
-                message: "User deleted"
+                message: "Usuario eliminado."
             });
         })
         .catch(err => {
             console.log(err);
-            res.status(500).json({
+            res.status(500).json({ 
                 error: err
             });
         });

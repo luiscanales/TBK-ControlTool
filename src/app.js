@@ -16,6 +16,7 @@ mongoose.connect('mongodb://localhost/tbk-controltool', {useNewUrlParser: true }
 //importar rutas
 const indexRoutes = require('./routes/index');
 const userRoutes = require('./routes/users');
+const authRoutes = require('./routes/auth');
 
 //configuraciones
 app.set('port',process.env.PORT || 3000);
@@ -29,6 +30,7 @@ app.use(express.urlencoded({extended: false}));
 //rutas
 app.use('/',indexRoutes);
 app.use('/users', userRoutes);
+app.use('/auth', authRoutes);
 
 //starting the server
 app.listen(app.get('port'), ()=>{
