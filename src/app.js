@@ -2,8 +2,14 @@ const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 const app = express();
+
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json());
+
 
 //conexión a base de datos
 mongoose.connect('mongodb://localhost/tbk-controltool', { useNewUrlParser: true }, )
@@ -13,6 +19,7 @@ mongoose.connect('mongodb://localhost/tbk-controltool', { useNewUrlParser: true 
 
 //importar rutas
 const indexRoutes = require('./routes/index');
+const importRoutes = require('./routes/import');
 
 //configuraciones
 app.set('port', process.env.PORT || 3000);
@@ -25,6 +32,7 @@ app.use(express.urlencoded({ extended: false }));
 
 //rutas
 app.use('/', indexRoutes);
+app.use('/', importRoutes);
 
 //starting the server
 app.listen(app.get('port'), () => {
