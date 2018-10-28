@@ -2,6 +2,9 @@
 npm:    multer
         xlstojson
         xlsxtojson
+
+Por hacer : Ingresar data.json a la base de datos.
+            Modificar los mensajes de errores.
 */
 
 const express = require('express');
@@ -44,12 +47,12 @@ router.post('/upload', function(req, res) {
     var exceltojson;
     upload(req, res, function(err) {
         if (err) {
-            res.json({ error_code: 1, err_desc: err }); //modificar tipo de error
+            res.json({ error_code: 1, err_desc: err });
             return;
         }
         /** Multer gives us file info in req.file object */
         if (!req.file) {
-            res.json({ error_code: 1, err_desc: "Error a en la subida de archivo" }); //modificar
+            res.json({ error_code: 1, err_desc: "Error a en la subida de archivo" });
             return;
         }
         /** Check the extension of the incoming file and 
