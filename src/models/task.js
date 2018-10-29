@@ -6,12 +6,9 @@ const Schema = mongoose.Schema;
 
 const TaskSchema = new Schema({
     //esquema de la base de datos, se pone uno como ejemplo
-    title: String,
-    description: String,
-    status: {
-        type: Boolean,
-        default: false
-    }
+    periodo: { type: String, default: 'Octubre' },
+    año: { type: Number, default: 2018 },
+    colab: JSON
 });
 
-module.exports = mongoose.model('tasks',TaskSchema)
+module.exports = mongoose.model('tasks', TaskSchema)
