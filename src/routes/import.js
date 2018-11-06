@@ -3,8 +3,7 @@ npm:    multer
         xlstojson
         xlsxtojson
 
-Por hacer : Ingresar data.json a la base de datos.
-            Modificar los mensajes de errores.
+Por hacer : Modificar los mensajes de errores.
 */
 
 const express = require('express');
@@ -27,7 +26,6 @@ var storage = multer.diskStorage({ //multers disk storage settings
         cb(null, './uploads/')
     },
     filename: function(req, file, cb) {
-        // var datetimestamp = new Date();
         cb(null, file.originalname)
             // cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1])
     }
@@ -92,6 +90,8 @@ router.post('/upload', function(req, res) {
                         //res.json(obj);
 
                         console.log('datos')
+
+
 
                         let datos = new DB({
                             colab: obj,

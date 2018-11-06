@@ -6,9 +6,24 @@ const Schema = mongoose.Schema;
 
 const TaskSchema = new Schema({
     //esquema de la base de datos, se pone uno como ejemplo
-    periodo: { type: String, default: 'Octubre' },
-    año: { type: Number, default: 2018 },
+    periodo: {
+        type: String,
+        required: true,
+        index: true,
+    },
+    año: {
+        type: Number,
+        required: true,
+        index: true,
+    },
     colab: JSON
 });
 
-module.exports = mongoose.model('tasks', TaskSchema)
+TaskSchema.index({
+    periodo: 1,
+    año: 1,
+}, {
+    unique: true,
+});
+
+module.exports = mongoose.model('tasks', TaskSchema);
