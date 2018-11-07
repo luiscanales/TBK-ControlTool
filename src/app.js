@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 const app = express();
-var bodyParser = require('body-parser');
+
 app.use(bodyParser.json());
 
 
@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 
 //conexión a base de datos
 
-mongoose.connect('mongodb://localhost/tbk-controltool', {useNewUrlParser: true })
+mongoose.connect('mongodb://localhost/tbk-controltool', { useNewUrlParser: true })
     .then(db => console.log('Base de datos conectada exitosamente.'))
 mongoose.connect('mongodb://localhost/tbk-controltool', { useNewUrlParser: true }, )
     .then(db => console.log('Db connected'))
@@ -39,15 +39,16 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }));
 
 //rutas
-app.use('/',indexRoutes);
+app.use('/', indexRoutes);
 app.use('/users', userRoutes);
 app.use('/auth', authRoutes);
 
 //starting the server
-app.listen(app.get('port'), ()=>{
+app.listen(app.get('port'), () => {
     console.log(`Servidor conectado en puerto ${app.get('port')}`);
-app.use('/', indexRoutes);
-app.use('/', importRoutes);
+    app.use('/', indexRoutes);
+    app.use('/', importRoutes);
+});
 
 //starting the server
 app.listen(app.get('port'), () => {
