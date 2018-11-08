@@ -79,19 +79,12 @@ router.post('/upload', function(req, res) {
                     return res.json({ error_code: 1, err_desc: err, data: null });
                 } else {
 
-                    //let obj = JSON.parse(fs.readFileSync('./uploads/data.json', 'utf8'));
-                    //res.json(obj);
-
-
-
                     fs.readFile('./uploads/data.json', 'utf8', function(err, data) {
                         if (err) throw err;
                         obj = JSON.parse(data);
+
                         //res.json(obj);
-
-                        console.log('datos')
-
-
+                        //console.log('datos')
 
                         let datos = new DB({
                             colab: obj,
@@ -122,19 +115,12 @@ router.post('/upload', function(req, res) {
         } catch (e) {
             res.json({ error_code: 1, err_desc: "Corupted excel file" });
         }
-
-
         try {
             fs.unlinkSync(req.file.path);
-
         } catch (e) {
             //error deleting the file
         };
-
     })
-
 });
-
-
 
 module.exports = router;
