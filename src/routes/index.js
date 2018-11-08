@@ -53,5 +53,8 @@ router.get('/delete/:id', async (req,res)=>{
     res.redirect('/');
 });
 
+router.get('/graficos', function(req,res){
+    res.render('graficos');
+});
 
 module.exports = router;
