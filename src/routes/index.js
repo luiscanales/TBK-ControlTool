@@ -53,8 +53,11 @@ router.get('/delete/:id', async (req,res)=>{
     res.redirect('/');
 });
 
-router.get('/graficos', function(req,res){
-    res.render('graficos');
+router.get('/graficos', function(req,res){  //cuenta los colaboradores
+    Task.aggregate([{ $unwind: "$colab"},{$count: "cantidad"}],function(err,result){
+        if (err) console.log(err);
+        res.render('graficos',{result:result});
+    });
 });
 
 module.exports = router;

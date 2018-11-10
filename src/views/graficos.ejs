@@ -1,9 +1,83 @@
 <% include partials/_header.ejs %>
-
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js" charset="utf-8"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js" charset="utf-8"></script>
+    <script type="text/javascript" src="http://www.chartjs.org/samples/latest/utils.js"></script>
     <div class="row">
         <div class="container">
             <h2>Graficos</h2>
         </div>
     </div>
+    <form id        =  "uploadForm"
+     enctype   =  "multipart/form-data"
+     action    =  "upload"
+     method    =  "post"
+    >
+    <input type="file" name="file" />Upload
+    <input type="submit" value="Upload" name="submit">
+    </form>
+    <h2>Numero de colaboradores:<%= JSON.stringify(result[0].cantidad)  %></h2>
+
+    <canvas id="myCanvas" width="400" height="200">Your browser does not support the canvas feature.</canvas>
+    <script type="text/javascript">
+        window.onload = function() {
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+    
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+              datasets: [{
+                    label: 'Dataset 1',
+                    backgroundColor: window.chartColors.red,
+                    stack: 'Stack 0',
+                    data: [
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor()
+                    ]
+                }, {
+                    label: 'Dataset 2',
+                    backgroundColor: window.chartColors.blue,
+                    stack: 'Stack 0',
+                    data: [
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor()
+                    ]
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Chart.js Bar Chart - Stacked'
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false
+                },
+                responsive: true,
+                scales: {
+                    xAxes: [{
+                        stacked: true,
+                    }],
+                    yAxes: [{
+                        stacked: true
+                    }]
+                }
+            }
+          });
+    }
+    </script>
     
 <% include partials/_footer.ejs %>
