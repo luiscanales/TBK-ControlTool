@@ -6,24 +6,25 @@ const Schema = mongoose.Schema;
 
 const ColabSchema = new Schema({
     //esquema de la base de datos, se pone uno como ejemplo
-    periodo: {
-        type: String,
-        required: true,
-        index: true,
+    _id: {
+        periodo: {
+            type: String,
+            required: true,
+        },
+        año: {
+            type: Number,
+            required: true,
+        }
     },
-    año: {
-        type: Number,
-        required: true,
-        index: true,
-    },
+
     colab: JSON
 });
 
-ColabSchema.index({
-    periodo: 1,
-    año: 1,
-}, {
-    unique: true,
-});
+// ColabSchema.index({
+//     periodo: 1,
+//     año: 1,
+// }, {
+//     unique: true,
+// });
 
 module.exports = mongoose.model('colaboradores', ColabSchema);

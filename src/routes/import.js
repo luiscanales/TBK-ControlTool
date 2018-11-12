@@ -169,18 +169,24 @@ router.post('/ingreso', archivo.single('file'), function(req, res) {
                     if (err) throw err;
                     obj = JSON.parse(data);
                     console.log(body.tipo)
+
                     if (body.tipo === 'Desvinculados') {
 
                         var datos = new Desviculados({
                             colab: obj,
-                            periodo: body.mes,
-                            año: body.año
+                            _id: {
+                                periodo: body.mes,
+                                año: body.año
+                            }
+
                         });
                     } else if (body.tipo === 'Colaboradores') {
                         var datos = new Colaboradores({
                             colab: obj,
-                            periodo: body.mes,
-                            año: body.año
+                            _id: {
+                                periodo: body.mes,
+                                año: body.año
+                            }
                         });
                     }
 
