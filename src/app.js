@@ -6,8 +6,6 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-app.use(bodyParser.json());
-
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
@@ -23,7 +21,6 @@ mongoose.connect('mongodb://localhost/tbk-controltool', { useNewUrlParser: true 
 
 
 //importar rutas
-const indexRoutes = require('./routes/index');
 const userRoutes = require('./routes/users');
 const authRoutes = require('./routes/auth');
 const importRoutes = require('./routes/import');
@@ -39,13 +36,11 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }));
 
 //rutas
-app.use('/', indexRoutes);
+app.use('/imports', importRoutes);
 app.use('/users', userRoutes);
 app.use('/auth', authRoutes);
 
 //starting the server
 app.listen(app.get('port'), () => {
     console.log(`Servidor conectado en puerto ${app.get('port')}`);
-    app.use('/', indexRoutes);
-    app.use('/', importRoutes);
 });
