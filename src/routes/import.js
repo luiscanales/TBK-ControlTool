@@ -12,7 +12,15 @@ const router = express.Router();
 //------------------------//
 
 const multer = require('multer');
-const archivo = multer({ dest: './uploads/' });
+const archivo = multer({
+    dest: './uploads/',
+    fileFilter: function(req, file, callback) {
+        if (['xls', 'xlsx', 'csv'].indexOf(file.originalname.split('.')[file.originalname.split('.').length - 1]) === -1) {
+            return callback('Este documento no es soportado.');
+        }
+        callback(null, true);
+    }
+});
 
 const xlstojson = require("xls-to-json-lc");
 const xlsxtojson = require("xlsx-to-json-lc");
@@ -22,8 +30,6 @@ const fs = require('fs');
 const Colaboradores = require('../models/Colaboradores');
 const Desviculados = require('../models/Desviculados');
 
-var multipart = require('connect-multiparty');
-var multipartMiddleware = multipart();
 
 //-------------------------------------//
 
