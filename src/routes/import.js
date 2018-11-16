@@ -35,18 +35,66 @@ const Cruce = require('../models/Cruce')
 
 /** API path that will upload the files */
 
-router.get('/cruce', function(req, res) {
+
+//obtener Colab, Desv o Cruce
+router.get('/lista', function(req, res) {
     let body = req.body;
+    let tipo = body.tipo;
+    let mes = body.periodo;
+    let año = parseInt(body.año);
 
-    let match = db.Colaboradores.find({ _id: { 'periodo': 'Enero', año: 2011 } });
-    console.log(match);
+    console.log(mes);
+    console.log(typeof año);
 
+    if (tipo == 'Colaboradores') {
+        Colaboradores.find({ _id: { periodo: mes, año: año } }, (err, listaDB) => {
 
+            if (err) {
+                return res.status(400).json({
+                    ok: false,
+                    err
+                });
+            }
+            res.json({
+                ok: true,
+                lista: listaDB
+            });
+        });
+    } else if (tipo = 'Desvinculados') {
+        Desvinculados.find({ _id: { periodo: mes, año: año } }, (err, listaDB) => {
+
+            if (err) {
+                return res.status(400).json({
+                    ok: false,
+                    err
+                });
+            }
+            res.json({
+                ok: true,
+                lista: listaDB
+            });
+        });
+    } else if (tipo == 'Cruce') {
+        Cruce.find({ _id: { periodo: mes, año: año } }, (err, listaDB) => {
+
+            if (err) {
+                return res.status(400).json({
+                    ok: false,
+                    err
+                });
+            }
+            res.json({
+                ok: true,
+                lista: listaDB
+            });
+        });
+    }
 });
 
 
 
-// Ingreso de Colab y Desv
+// Ingreso de Colab y Desv 
+
 
 router.post('/ingreso', archivo.single('file'), function(req, res) {
 
@@ -92,6 +140,7 @@ router.post('/ingreso', archivo.single('file'), function(req, res) {
                             }
 
                         });
+
                     } else if (body.tipo === 'Colaboradores') {
                         var datos = new Colaboradores({
                             colab: obj,
@@ -129,8 +178,13 @@ router.post('/ingreso', archivo.single('file'), function(req, res) {
         fs.unlinkSync(file.path);
     } catch (e) {
         //error deleting the file
-        console.log('holi')
+        console.log('No se pudo eliminar el archivo')
     };
+
+});
+
+
+router.post('/cruce', function(req, res) {
 
 });
 
