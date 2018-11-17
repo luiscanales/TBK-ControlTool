@@ -1,0 +1,15 @@
+<% include partials/_header.ejs %>
+<div class="row">
+    <div class="container">
+        <h2>Ingreso de listados</h2>
+    </div>
+</div>
+<form id   =  "uploadForm"
+ enctype   =  "multipart/form-data"
+ action    =  "upload"
+ method    =  "post"
+>
+<input type="file" name="file" />Upload
+<input type="submit" value="Upload" name="submit">
+</form>
+<% include partials/_footer.ejs %>

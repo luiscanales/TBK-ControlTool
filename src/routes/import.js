@@ -20,7 +20,7 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 
 const Colaboradores = require('../models/Colaboradores');
-const Desviculados = require('../models/Desviculados');
+const Desviculados = require('../models/Desvinculados');
 
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
