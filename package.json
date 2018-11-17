@@ -36,6 +36,7 @@
     },
     "homepage": "https://github.com/luiscanales/TBK-ControlTool#readme",
     "devDependencies": {
+        "@angular-devkit/build-angular": "^0.10.6",
         "nodemon": "^1.18.5"
     }
 }
