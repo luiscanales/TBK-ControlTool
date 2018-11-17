@@ -54,6 +54,7 @@ var upload = multer({
 
 
 /** API path that will upload the files */
+<<<<<<< HEAD
 
 //ingreso Colaboradores.
 
@@ -178,6 +179,45 @@ router.post('/ingreso', archivo.single('file'), function(req, res) {
                                 periodo: body.mes,
                                 año: body.año
                             }
+=======
+router.post('/upload', function(req, res) {
+    var exceltojson;
+    upload(req, res, function(err) {
+        if (err) {
+            res.json({ error_code: 1, err_desc: err });
+            return;
+        }
+        /** Multer gives us file info in req.file object */
+        if (!req.file) {
+            res.json({ error_code: 1, err_desc: "Error a en la subida de archivo" });
+            return;
+        }
+        /** Check the extension of the incoming file and 
+         *  use the appropriate module
+         */
+        if (req.file.originalname.split('.')[req.file.originalname.split('.').length - 1] === 'xlsx') {
+            exceltojson = xlsxtojson;
+        } else {
+            exceltojson = xlstojson;
+        }
+        console.log(req.file.path);
+        try {
+            exceltojson({
+                input: req.file.path,
+                output: "./uploads/data.json",
+                lowerCaseHeaders: true
+            }, function(err) {
+                if (err) {
+                    return res.json({ error_code: 1, err_desc: err, data: null });
+                } else {
+
+                    fs.readFile('./uploads/data.json', 'utf8', function(err, data) {
+                        if (err) throw err;
+                        obj = JSON.parse(data);
+
+                        //res.json(obj);
+                        //console.log('datos')
+>>>>>>> fcc94dc67aeb07f41baec670c5def0172fa0ed2d
 
                         });
                     } else if (body.tipo === 'Colaboradores') {
@@ -207,6 +247,7 @@ router.post('/ingreso', archivo.single('file'), function(req, res) {
                             msg: body.tipo + ' Grabados'
                         });
                     });
+<<<<<<< HEAD
                 });
             }
         });
@@ -220,6 +261,19 @@ router.post('/ingreso', archivo.single('file'), function(req, res) {
         console.log('holi')
     };
 
+=======
+                }
+            });
+        } catch (e) {
+            res.json({ error_code: 1, err_desc: "Corupted excel file" });
+        }
+        try {
+            fs.unlinkSync(req.file.path);
+        } catch (e) {
+            //error deleting the file
+        };
+    })
+>>>>>>> fcc94dc67aeb07f41baec670c5def0172fa0ed2d
 });
 
 module.exports = router;

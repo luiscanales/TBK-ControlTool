@@ -21,12 +21,6 @@ const userSchema = mongoose.Schema({
         trim: true,
         match: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
     },
-    // phone:{
-    //     type: Number,
-    //     unique: true,
-    //     trim: true,
-    //     required: true
-    // },
     cargo:{
         type: String,
         required: true
@@ -35,10 +29,6 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    // passwordConf: {
-    //     type: String,
-    //     required: true,
-    // }
 });
 
 module.exports = mongoose.model('User', userSchema);
