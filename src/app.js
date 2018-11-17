@@ -14,8 +14,6 @@ app.use(bodyParser.json());
 
 //conexión a base de datos
 
-mongoose.connect('mongodb://localhost/tbk-controltool', { useNewUrlParser: true })
-    .then(db => console.log('Base de datos conectada exitosamente.'))
 mongoose.connect('mongodb://localhost/tbk-controltool', { useNewUrlParser: true }, )
     .then(db => console.log('Db connected'))
     .catch(err => console.log(err));
