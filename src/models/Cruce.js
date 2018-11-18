@@ -14,7 +14,10 @@ const CruceSchema = new Schema({
             required: true,
         }
     },
-    colab: JSON
+    colab_desv: {
+        type: JSON,
+        required: true
+    }
 });
 
 module.exports = mongoose.model('cruce', CruceSchema);

@@ -43,50 +43,70 @@ router.get('/lista', function(req, res) {
     let mes = body.periodo;
     let año = parseInt(body.año);
 
-    console.log(mes);
-    console.log(typeof año);
-
     if (tipo == 'Colaboradores') {
         Colaboradores.find({ _id: { periodo: mes, año: año } }, (err, listaDB) => {
-
             if (err) {
                 return res.status(400).json({
                     ok: false,
                     err
                 });
-            }
-            res.json({
-                ok: true,
-                lista: listaDB
-            });
+
+            } else if (listaDB[0] == undefined) {
+                res.status(400).json({
+                    ok: false,
+                    msg: 'No existe Colaboradores en de datos en la DB'
+                });
+
+            } else {
+                res.json({
+                    ok: true,
+                    lista: listaDB
+                });
+            };
         });
-    } else if (tipo = 'Desvinculados') {
+
+    } else if (tipo == 'Desvinculados') {
         Desvinculados.find({ _id: { periodo: mes, año: año } }, (err, listaDB) => {
-
             if (err) {
                 return res.status(400).json({
                     ok: false,
                     err
                 });
-            }
-            res.json({
-                ok: true,
-                lista: listaDB
-            });
+
+            } else if (listaDB[0] == undefined) {
+                res.status(400).json({
+                    ok: false,
+                    msg: 'No existe Desvinculados en de datos en la DB'
+                });
+
+            } else {
+                res.json({
+                    ok: true,
+                    lista: listaDB
+                });
+            };
         });
+
     } else if (tipo == 'Cruce') {
         Cruce.find({ _id: { periodo: mes, año: año } }, (err, listaDB) => {
-
             if (err) {
                 return res.status(400).json({
                     ok: false,
                     err
                 });
-            }
-            res.json({
-                ok: true,
-                lista: listaDB
-            });
+
+            } else if (listaDB[0] == undefined) {
+                res.status(400).json({
+                    ok: false,
+                    msg: 'No existe Cruce en de datos en la DB'
+                });
+
+            } else {
+                res.json({
+                    ok: true,
+                    lista: listaDB
+                });
+            };
         });
     }
 });
@@ -123,8 +143,8 @@ router.post('/ingreso', archivo.single('file'), function(req, res) {
         }, function(err) {
             if (err) {
                 return res.json({ error_code: 1, err_desc: err, data: null });
-            } else {
 
+            } else {
                 fs.readFile('./uploads/data.json', 'utf8', function(err, data) {
                     if (err) throw err;
                     obj = JSON.parse(data);
@@ -138,7 +158,6 @@ router.post('/ingreso', archivo.single('file'), function(req, res) {
                                 periodo: body.mes,
                                 año: body.año
                             }
-
                         });
 
                     } else if (body.tipo === 'Colaboradores') {
@@ -185,6 +204,77 @@ router.post('/ingreso', archivo.single('file'), function(req, res) {
 
 
 router.post('/cruce', function(req, res) {
+    let body = req.body;
+    let mes = body.periodo;
+    let años = parseInt(body.año);
+
+    Desvinculados.find({ _id: { periodo: mes, año: años } }, (err, desvDB) => {
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
+            });
+
+        } else if (desvDB[0] === undefined) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'No existe Lista de Desvinculados'
+            })
+
+        } else {
+            Colaboradores.find({ _id: { periodo: mes, año: años } }, (err, colabDB) => {
+
+                if (err) {
+                    return res.status(400).json({
+                        ok: false,
+                        err
+                    });
+
+                } else if (colabDB[0] === undefined) {
+                    return res.status(400).json({
+                        ok: false,
+                        msg: 'No existe Lista de Colaboradores'
+                    });
+
+                } else {
+
+                    var arr = [];
+
+                    for (let desv of desvDB[0].colab) {
+                        for (let colab of colabDB[0].colab) {
+                            if (desv.id === colab.id) {
+                                arr.push(desv)
+                            }
+                        }
+                    }
+
+                    var cruce = new Cruce({
+                        colab_desv: arr,
+                        _id: {
+                            periodo: mes,
+                            año: años
+                        }
+                    });
+
+                    cruce.save((err, active) => {
+                        console.log('grabar')
+                        if (err) {
+                            return res.status(400).json({
+                                ok: false,
+                                err
+                            });
+                        }
+
+                        console.log('grabame')
+                        res.json({
+                            ok: true,
+                            msg: 'Cruce ' + mes + ' ' + años + ' Grabados'
+                        });
+                    });
+                }
+            });
+        }
+    });
 
 });
 
