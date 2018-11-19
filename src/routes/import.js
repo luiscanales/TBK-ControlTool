@@ -36,6 +36,22 @@ const Cruce = require('../models/Cruce')
 /** API path that will upload the files */
 
 
+// router.put('/ingresoSingular',function(req,res){
+//     let body  = req.body;
+//     let mes = body.periodo;
+//     let año = body.año;
+//     let tipo = body.tipo;
+//     let sujeto = {
+//         id: body.id,
+//         nombre: body.nombre,
+//         cargo: body.cargo
+//     }
+
+//     Colaboradores.find({_id:{periodo:mes,año:año}},function(req,usuarioDB){
+
+//     });
+// });
+
 //obtener Colab, Desv o Cruce
 router.get('/lista', function(req, res) {
     let body = req.body;
@@ -111,10 +127,7 @@ router.get('/lista', function(req, res) {
     }
 });
 
-
-
 // Ingreso de Colab y Desv 
-
 
 router.post('/ingreso', archivo.single('file'), function(req, res) {
 
@@ -148,7 +161,6 @@ router.post('/ingreso', archivo.single('file'), function(req, res) {
                 fs.readFile('./uploads/data.json', 'utf8', function(err, data) {
                     if (err) throw err;
                     obj = JSON.parse(data);
-                    console.log(body.tipo)
 
                     if (body.tipo === 'Desvinculados') {
 
@@ -170,10 +182,8 @@ router.post('/ingreso', archivo.single('file'), function(req, res) {
                         });
                     }
 
-                    console.log('vamos a grabar');
-
                     datos.save((err, active) => {
-                        console.log('grabar')
+
                         if (err) {
                             return res.status(400).json({
                                 ok: false,
@@ -181,7 +191,6 @@ router.post('/ingreso', archivo.single('file'), function(req, res) {
                             });
                         }
 
-                        console.log('grabame')
                         res.json({
                             ok: true,
                             msg: body.tipo + ' Grabados'
@@ -199,9 +208,84 @@ router.post('/ingreso', archivo.single('file'), function(req, res) {
         //error deleting the file
         console.log('No se pudo eliminar el archivo')
     };
-
 });
 
+
+router.post('/borrar', function(req, res) {
+    let body = req.body;
+    let mes = body.periodo
+    let tipo = body.tipo;
+    let año = parseInt(body.año)
+
+    if (tipo === 'Colaboradores') {
+        Colaboradores.deleteOne({ _id: { periodo: mes, año: año } }, function(err) {
+
+            if (err) {
+                return res.status(400).json({
+                    ok: false,
+                    err
+                });
+
+            } else if (mes === undefined || año === undefined) {
+                res.json({
+                    ok: false,
+                    msg: 'Error al borrar lista de colaboradores.'
+                });
+
+            } else {
+                res.json({
+                    ok: true,
+                    msg: 'Se elimino la lista de colaboradores.'
+                });
+            }
+        });
+    } else if (tipo === 'Desvinculados') {
+        Desvinculados.deleteOne({ _id: { periodo: mes, año: año } }, function(err) {
+
+            if (err) {
+                return res.status(400).json({
+                    ok: false,
+                    err
+                });
+
+            } else if (mes === undefined || año === undefined) {
+                res.json({
+                    ok: false,
+                    msg: 'Error al borrar lista de desvinculados.'
+                });
+
+            } else {
+                res.json({
+                    ok: true,
+                    msg: 'Se elimino la lista de desvinculados.'
+                });
+            }
+        });
+
+    } else if (tipo === 'Cruces') {
+        Cruce.deleteOne({ _id: { periodo: mes, año: año } }, function(err) {
+
+            if (err) {
+                return res.status(400).json({
+                    ok: false,
+                    err
+                });
+
+            } else if (mes === undefined || año === undefined) {
+                res.json({
+                    ok: false,
+                    msg: 'Error al borrar cruce de datos'
+                });
+
+            } else {
+                res.json({
+                    ok: true,
+                    msg: 'Se elimino el cruce de datos.'
+                });
+            }
+        });
+    }
+});
 
 router.post('/cruce', function(req, res) {
     let body = req.body;
@@ -257,7 +341,6 @@ router.post('/cruce', function(req, res) {
                     });
 
                     cruce.save((err, active) => {
-                        console.log('grabar')
                         if (err) {
                             return res.status(400).json({
                                 ok: false,
@@ -265,7 +348,6 @@ router.post('/cruce', function(req, res) {
                             });
                         }
 
-                        console.log('grabame')
                         res.json({
                             ok: true,
                             msg: 'Cruce ' + mes + ' ' + años + ' Grabados'
