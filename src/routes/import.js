@@ -59,7 +59,8 @@ router.get('/lista', function(req, res) {
     let tipo = body.tipo;
     let mes = body.periodo;
     let año = parseInt(body.año);
-    /** API path that will upload the files */
+    console.log(tipo, mes, año)
+        /** API path that will upload the files */
     if (tipo == 'Colaboradores') {
         Colaboradores.find({ _id: { periodo: mes, año: año } }, (err, listaDB) => {
             if (err) {
@@ -218,7 +219,7 @@ router.post('/borrar', function(req, res) {
     let tipo = body.tipo;
     let año = parseInt(body.año)
 
-    if (tipo === 'Colaboradores') {
+    if (tipo == 'Colaboradores') {
         Colaboradores.deleteOne({ _id: { periodo: mes, año: año } }, function(err) {
 
             if (err) {
@@ -240,7 +241,7 @@ router.post('/borrar', function(req, res) {
                 });
             }
         });
-    } else if (tipo === 'Desvinculados') {
+    } else if (tipo == 'Desvinculados') {
         Desvinculados.deleteOne({ _id: { periodo: mes, año: año } }, function(err) {
 
             if (err) {
@@ -263,7 +264,7 @@ router.post('/borrar', function(req, res) {
             }
         });
 
-    } else if (tipo === 'Cruces') {
+    } else if (tipo == 'Cruces') {
         Cruce.deleteOne({ _id: { periodo: mes, año: año } }, function(err) {
 
             if (err) {
