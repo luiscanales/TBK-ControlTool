@@ -28,10 +28,6 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 
 const Colaboradores = require('../models/Colaboradores');
-
-
-var multipart = require('connect-multiparty');
-var multipartMiddleware = multipart();
 const Desvinculados = require('../models/Desvinculados');
 const Cruce = require('../models/Cruce')
 
@@ -40,65 +36,100 @@ const Cruce = require('../models/Cruce')
 /** API path that will upload the files */
 
 
+// router.put('/ingresoSingular',function(req,res){
+//     let body  = req.body;
+//     let mes = body.periodo;
+//     let año = body.año;
+//     let tipo = body.tipo;
+//     let sujeto = {
+//         id: body.id,
+//         nombre: body.nombre,
+//         cargo: body.cargo
+//     }
+
+//     Colaboradores.find({_id:{periodo:mes,año:año}},function(req,usuarioDB){
+
+//     });
+// });
+
+
 //obtener Colab, Desv o Cruce
 router.get('/lista', function(req, res) {
     let body = req.body;
     let tipo = body.tipo;
     let mes = body.periodo;
     let año = parseInt(body.año);
-
-    console.log(mes);
-    console.log(typeof año);
-
+    console.log(tipo, mes, año)
+        /** API path that will upload the files */
     if (tipo == 'Colaboradores') {
         Colaboradores.find({ _id: { periodo: mes, año: año } }, (err, listaDB) => {
-
             if (err) {
                 return res.status(400).json({
                     ok: false,
                     err
                 });
-            }
-            res.json({
-                ok: true,
-                lista: listaDB
-            });
+
+            } else if (listaDB[0] == undefined) {
+                res.status(400).json({
+                    ok: false,
+                    msg: 'No existe Colaboradores en de datos en la DB'
+                });
+
+            } else {
+                res.json({
+                    ok: true,
+                    lista: listaDB
+                });
+            };
         });
-    } else if (tipo = 'Desvinculados') {
+
+    } else if (tipo == 'Desvinculados') {
         Desvinculados.find({ _id: { periodo: mes, año: año } }, (err, listaDB) => {
-
             if (err) {
                 return res.status(400).json({
                     ok: false,
                     err
                 });
-            }
-            res.json({
-                ok: true,
-                lista: listaDB
-            });
+
+            } else if (listaDB[0] == undefined) {
+                res.status(400).json({
+                    ok: false,
+                    msg: 'No existe Desvinculados en de datos en la DB'
+                });
+
+            } else {
+                res.json({
+                    ok: true,
+                    lista: listaDB
+                });
+            };
         });
+
     } else if (tipo == 'Cruce') {
         Cruce.find({ _id: { periodo: mes, año: año } }, (err, listaDB) => {
-
             if (err) {
                 return res.status(400).json({
                     ok: false,
                     err
                 });
-            }
-            res.json({
-                ok: true,
-                lista: listaDB
-            });
+
+            } else if (listaDB[0] == undefined) {
+                res.status(400).json({
+                    ok: false,
+                    msg: 'No existe Cruce en de datos en la DB'
+                });
+
+            } else {
+                res.json({
+                    ok: true,
+                    lista: listaDB
+                });
+            };
         });
     }
 });
 
-
-
 // Ingreso de Colab y Desv 
-
 
 router.post('/ingreso', archivo.single('file'), function(req, res) {
 
@@ -127,12 +158,11 @@ router.post('/ingreso', archivo.single('file'), function(req, res) {
         }, function(err) {
             if (err) {
                 return res.json({ error_code: 1, err_desc: err, data: null });
-            } else {
 
+            } else {
                 fs.readFile('./uploads/data.json', 'utf8', function(err, data) {
                     if (err) throw err;
                     obj = JSON.parse(data);
-                    console.log(body.tipo)
 
                     if (body.tipo === 'Desvinculados') {
 
@@ -142,7 +172,10 @@ router.post('/ingreso', archivo.single('file'), function(req, res) {
                                 periodo: body.mes,
                                 año: body.año
                             }
+<<<<<<< HEAD
 
+=======
+>>>>>>> da56d4d7494c2bbd16baf918278eefdb361de99b
                         });
 
                     } else if (body.tipo === 'Colaboradores') {
@@ -155,10 +188,8 @@ router.post('/ingreso', archivo.single('file'), function(req, res) {
                         });
                     }
 
-                    console.log('vamos a grabar');
-
                     datos.save((err, active) => {
-                        console.log('grabar')
+
                         if (err) {
                             return res.status(400).json({
                                 ok: false,
@@ -166,7 +197,6 @@ router.post('/ingreso', archivo.single('file'), function(req, res) {
                             });
                         }
 
-                        console.log('grabame')
                         res.json({
                             ok: true,
                             msg: body.tipo + ' Grabados'
@@ -184,12 +214,159 @@ router.post('/ingreso', archivo.single('file'), function(req, res) {
         //error deleting the file
         console.log('No se pudo eliminar el archivo')
     };
+<<<<<<< HEAD
 
+=======
+>>>>>>> da56d4d7494c2bbd16baf918278eefdb361de99b
 });
 
 
-router.post('/cruce', function(req, res) {
+router.post('/borrar', function(req, res) {
+    let body = req.body;
+    let mes = body.periodo
+    let tipo = body.tipo;
+    let año = parseInt(body.año)
 
+    if (tipo == 'Colaboradores') {
+        Colaboradores.deleteOne({ _id: { periodo: mes, año: año } }, function(err) {
+
+            if (err) {
+                return res.status(400).json({
+                    ok: false,
+                    err
+                });
+
+            } else if (mes === undefined || año === undefined) {
+                res.json({
+                    ok: false,
+                    msg: 'Error al borrar lista de colaboradores.'
+                });
+
+            } else {
+                res.json({
+                    ok: true,
+                    msg: 'Se elimino la lista de colaboradores.'
+                });
+            }
+        });
+    } else if (tipo == 'Desvinculados') {
+        Desvinculados.deleteOne({ _id: { periodo: mes, año: año } }, function(err) {
+
+            if (err) {
+                return res.status(400).json({
+                    ok: false,
+                    err
+                });
+
+            } else if (mes === undefined || año === undefined) {
+                res.json({
+                    ok: false,
+                    msg: 'Error al borrar lista de desvinculados.'
+                });
+
+            } else {
+                res.json({
+                    ok: true,
+                    msg: 'Se elimino la lista de desvinculados.'
+                });
+            }
+        });
+
+    } else if (tipo == 'Cruces') {
+        Cruce.deleteOne({ _id: { periodo: mes, año: año } }, function(err) {
+
+            if (err) {
+                return res.status(400).json({
+                    ok: false,
+                    err
+                });
+
+            } else if (mes === undefined || año === undefined) {
+                res.json({
+                    ok: false,
+                    msg: 'Error al borrar cruce de datos'
+                });
+
+            } else {
+                res.json({
+                    ok: true,
+                    msg: 'Se elimino el cruce de datos.'
+                });
+            }
+        });
+    }
+});
+
+router.post('/cruce', function(req, res) {
+    let body = req.body;
+    let mes = body.periodo;
+    let años = parseInt(body.año);
+
+    Desvinculados.find({ _id: { periodo: mes, año: años } }, (err, desvDB) => {
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
+            });
+
+        } else if (desvDB[0] === undefined) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'No existe Lista de Desvinculados'
+            })
+
+        } else {
+            Colaboradores.find({ _id: { periodo: mes, año: años } }, (err, colabDB) => {
+
+                if (err) {
+                    return res.status(400).json({
+                        ok: false,
+                        err
+                    });
+
+                } else if (colabDB[0] === undefined) {
+                    return res.status(400).json({
+                        ok: false,
+                        msg: 'No existe Lista de Colaboradores'
+                    });
+
+                } else {
+
+                    var arr = [];
+
+                    for (let desv of desvDB[0].colab) {
+                        for (let colab of colabDB[0].colab) {
+                            if (desv.id === colab.id) {
+                                arr.push(desv)
+                            }
+                        }
+                    }
+
+                    var cruce = new Cruce({
+                        colab_desv: arr,
+                        _id: {
+                            periodo: mes,
+                            año: años
+                        }
+                    });
+
+                    cruce.save((err, active) => {
+                        if (err) {
+                            return res.status(400).json({
+                                ok: false,
+                                err
+                            });
+                        }
+
+                        res.json({
+                            ok: true,
+                            msg: 'Cruce ' + mes + ' ' + años + ' Grabados'
+                        });
+                    });
+                }
+            });
+        }
+    });
 });
 
 module.exports = router;
