@@ -66,7 +66,7 @@
     <div class="col-md-5">
         <div class="card">
             <div class="card-body">
-                <form id="uploadForm" enctype="multipart/form-data" action="imports/lista" method="get">
+                <form id="uploadForm" enctype="application/x-www-form-urlencoded" action="imports/lista" method="post">
 
                     <div class="form-group">
                         <label class="col-sm-12">Seleccionar Mes</label>
@@ -118,7 +118,7 @@
     <div class="col-md-5">
         <div class="card">
             <div class="card-body">
-                <form id="uploadForm" enctype="multipart/form-data" action="imports/borrar" method="post">
+                <form id="uploadForm" enctype="application/x-www-form-urlencoded" action="imports/borrar" method="post">
 
                     <div class="form-group">
                         <label class="col-sm-12">Seleccionar Mes</label>
@@ -171,7 +171,7 @@
     <div class="col-md-5">
         <div class="card">
             <div class="card-body">
-                <form id="uploadForm" enctype="multipart/form-data" action="imports/cruce" method="post">
+                <form id="uploadForm" enctype="application/x-www-form-urlencoded" action="imports/cruce" method="post">
 
                     <div class="form-group">
                         <label class="col-sm-12">Seleccionar Mes</label>
@@ -208,17 +208,7 @@
     </div>
 
 
-    <!-- AÑO: <input type="text" name="año" />
 
-    <br> TIPO:
-    <select name="tipo">
-            <option value="Colaboradores">Colaboradores</option>
-            <option value="Desvinculados">Desvinculados</option>
-        </select>
-    <br>
-    <input type="file" name="file" />Upload
-    <input type="submit" value="Upload" name="submit">
-    </form> -->
 
 
     <% include partials/_footer.ejs %>
