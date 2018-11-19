@@ -3,7 +3,7 @@ var async = require('async');
 const router = express.Router();
 
 const Com = require('../models/Comentarios')
-const Colab = require('../models/Cruce')
+const Colab = require('../models/Desvinculados')
 // Rutas, se adjuntan unas como ejemplo...
 
 router.get('/register', function(req,res){

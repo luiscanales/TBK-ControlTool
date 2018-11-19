@@ -267,7 +267,6 @@ router.post('/borrar', function(req, res) {
 
     } else if (tipo == 'Cruces') {
         Cruce.deleteOne({ _id: { periodo: mes, año: año } }, function(err) {
-
             if (err) {
                 return res.status(400).json({
                     ok: false,
@@ -360,6 +359,7 @@ router.post('/cruce', function(req, res) {
             });
         }
     });
+    return res.redirect('/desvinculados');
 });
 
 module.exports = router;
