@@ -52,13 +52,14 @@ const Cruce = require('../models/Cruce')
 //     });
 // });
 
+
 //obtener Colab, Desv o Cruce
 router.get('/lista', function(req, res) {
     let body = req.body;
     let tipo = body.tipo;
     let mes = body.periodo;
     let año = parseInt(body.año);
-
+    /** API path that will upload the files */
     if (tipo == 'Colaboradores') {
         Colaboradores.find({ _id: { periodo: mes, año: año } }, (err, listaDB) => {
             if (err) {
@@ -357,7 +358,6 @@ router.post('/cruce', function(req, res) {
             });
         }
     });
-
 });
 
 module.exports = router;

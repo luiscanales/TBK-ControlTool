@@ -1,0 +1,78 @@
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+
+
+<div class="container">
+<hr>
+
+<div class="row">
+    <div class="col"></div>
+      <div class="col-8" style="justify-content:center;">
+        <div class="card text-center ">
+          <div class="card-header">
+            Registro de Usuario TBK Control Tool
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="form-group input-group">
+              <div class="input-group-prepend">
+                  <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+              </div>
+                  <input [(ngModel)]="registerUserData.name" name="name" class="form-control" placeholder="Ingrese su nombre y apellido/s>" type="text">
+              </div> <!-- form-group// -->
+
+              <div class="form-group input-group">
+              <div class="input-group-prepend">
+                  <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+              </div>
+                  <input [(ngModel)]="registerUserData.username" name="username" class="form-control" placeholder="Ingrese su nombre de usuario>" type="text">
+              </div> <!-- form-group// -->
+                  
+              <div class="form-group input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+              </div>
+                  <input [(ngModel)]="registerUserData.email" name="email" class="form-control" placeholder="Ingrese su email" type="email">
+              </div> <!-- form-group// -->
+
+              <div class="form-group input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"> <i class="fa fa-building"></i> </span>
+                </div>
+                <div class="form-grup">
+                  <select name="position" id="position" class="form-control" [(ngModel)]="registerUserData.position">
+                    <option value="Administrador">Administrador</option>
+                    <option value="Analista">Analista</option>
+                    <option value="Gestión">Gestión</option>
+                  </select>
+                </div>
+              </div> <!-- form-group end.// -->
+              
+              <div class="form-group input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+              </div>
+                  <input [(ngModel)]="registerUserData.password" name="password" class="form-control" placeholder="Ingrese contraseña" type="password">
+              </div> <!-- form-group// -->
+              <!-- <div class="form-group input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+              </div>
+                  <input class="form-control" placeholder="Repita contraseña" type="password">
+              </div>  form-group// -->                                      
+              <div class="form-group">
+                  <button (click)="registerUser()" type="submit" class="btn btn-primary"> Crear Usuario  </button>
+              </div> <!-- form-group// -->      
+              <!-- <p class="text-center">Have an account? <a href="">Log In</a> </p> -->
+            </form>
+          </div>
+          <div class="card-footer text-muted">
+            TBKCT Register
+          </div>
+        </div> <!-- card.// -->
+
+      </div>
+
+      <div class="col"></div>
+  
+  </div>
+</div> 

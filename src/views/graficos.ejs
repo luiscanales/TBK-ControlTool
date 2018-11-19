@@ -1,0 +1,132 @@
+<% include partials/_header.ejs %>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js" charset="utf-8"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js" charset="utf-8"></script>
+    <script type="text/javascript" src="http://www.chartjs.org/samples/latest/utils.js"></script>
+    <div class="row">
+        <div class="container">
+            <h2>Graficos</h2>
+        </div>
+    </div>
+    <!-- Gráfico -->
+    <canvas id="myCanvas" width="1000px" height="400px">Your browser does not support the canvas feature.</canvas>
+    <script type="text/javascript">
+        Chart.defaults.global.legend.display = false;
+        window.onload = function() {
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['<%= mesesUsados[3] %>', '<%= mesesUsados[2] %>','<%= mesesUsados[1] %>','<%= mesesUsados[0]%>'],
+              datasets: [{
+                    label: 'Dataset 1',
+                    backgroundColor: window.chartColors.blue,
+                    stack: 'Stack 0',
+                    data:[
+                    
+                    <%= parseInt(JSON.stringify(result4[0].cantidad)) %>,
+                    <%= parseInt(JSON.stringify(result3[0].cantidad)) %>,
+                    <%= parseInt(JSON.stringify(result2[0].cantidad)) %>,
+                    <%= parseInt(JSON.stringify(result1[0].cantidad)) %>
+                    ]
+                }
+               ]
+            },
+            options: {
+                lineAt: <%= (parseInt(JSON.stringify(result1[0].cantidad)) + parseInt(JSON.stringify(result2[0].cantidad)) + parseInt(JSON.stringify(result3[0].cantidad)) + parseInt(JSON.stringify(result4[0].cantidad)) )/4 %>,
+                title:{
+                    display: true,
+                    text: 'Cuentas de Usuarios Desvinculados',
+                    fontSize: 30
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false
+                },
+                responsive: false,
+                scales: {
+                    xAxes: [{
+                        maxBarThickness: 150,
+                        stacked: true,
+                    }],
+                    yAxes: [{
+                        stacked: true
+                    }]
+                }
+                
+            },
+            showTooltips: false,
+            onAnimationComplete: function () {
+                var ctx = this.chart.ctx;
+                ctx.font = this.scale.font;
+                ctx.fillStyle = this.scale.textColor
+                ctx.textAlign = "center";
+                ctx.textBaseline = "bottom";
+        
+                this.datasets.forEach(function (dataset) {
+                    dataset.bars.forEach(function (bar) {
+                        ctx.fillText(bar.value, bar.x, bar.y - 5);
+                    });
+                })
+            } 
+        });
+        Chart.plugins.register({
+            afterDatasetsDraw: function(chart, easing) {
+                // To only draw at the end of animation, check for easing === 1
+                var ctx = chart.ctx;
+
+                chart.data.datasets.forEach(function (dataset, i) {
+                    var meta = chart.getDatasetMeta(i);
+                    if (!meta.hidden) {
+                        meta.data.forEach(function(element, index) {
+                            // Draw the text in black, with the specified font
+                            ctx.fillStyle = 'rgb(0, 0, 0)';
+
+                            var fontSize = 16;
+                            var fontStyle = 'normal';
+                            var fontFamily = 'Helvetica Neue';
+                            ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+
+                            // Just naively convert to string for now
+                            var dataString = dataset.data[index].toString();
+
+                            // Make sure alignment settings are correct
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+
+                            var padding = 5;
+                            var position = element.tooltipPosition();
+                            ctx.fillText(dataString, position.x, position.y - (fontSize / 2) - padding);
+                        });
+                    }
+                });
+            }
+        });
+        Chart.pluginService.register({
+            afterDraw: function(chart) {
+                if (typeof chart.config.options.lineAt != 'undefined') {
+                    var lineAt = chart.config.options.lineAt;
+                    var ctxPlugin = chart.chart.ctx;
+                    var xAxe = chart.scales[chart.config.options.scales.xAxes[0].id];
+                    var yAxe = chart.scales[chart.config.options.scales.yAxes[0].id];
+                       
+                    // I'm not good at maths
+                    // So I couldn't find a way to make it work ...
+                    // ... without having the `min` property set to 0
+                    if(yAxe.min != 0) return;
+                    
+                    ctxPlugin.strokeStyle = "red";
+                    ctxPlugin.beginPath();
+                    lineAt = (lineAt - yAxe.min) * (100 / yAxe.max);
+                    lineAt = (100 - lineAt) / 100 * (yAxe.height) + yAxe.top;
+                    ctxPlugin.moveTo(xAxe.left, lineAt);
+                    ctxPlugin.lineTo(xAxe.right, lineAt);
+                    ctxPlugin.stroke();
+                }
+            }
+        });
+    }
+    </script>
+<% include partials/_footer.ejs %>
