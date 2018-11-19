@@ -1,3 +1,4 @@
+<% include partials/_header.ejs %>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js" charset="utf-8"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js" charset="utf-8"></script>
@@ -5,7 +6,7 @@
     <script type="text/javascript" src="http://www.chartjs.org/samples/latest/utils.js"></script>
     <div class="row">
         <div class="container">
-            <h2>Graficos</h2>
+            <h2>Graficos Mes: <%=mesesUsados[0]%></h2>
         </div>
     </div>
     <!-- Gráfico -->
@@ -18,22 +19,22 @@
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['{{ datos.mesesUsados[3] }}', '{{ datos.mesesUsados[2] }}','{{ datos.mesesUsados[1] }}','{{ datos.mesesUsados[0] }}'],
-              datasets: [{
+                labels: ['<%= mesesUsados[3] %>', '<%= mesesUsados[2] %>','<%= mesesUsados[1] %>','<%= mesesUsados[0]%>'],
+                datasets: [{
                     label: 'Dataset 1',
                     backgroundColor: window.chartColors.blue,
                     stack: 'Stack 0',
-                    data:[
-                    {{ parseInt(JSON.stringify(datos.result4[0].cantidad)) }},
-                    {{ parseInt(JSON.stringify(datos.result3[0].cantidad)) }},
-                    {{ parseInt(JSON.stringify(datos.result2[0].cantidad)) }},
-                    {{ parseInt(JSON.stringify(datos.result1[0].cantidad)) }}
+                    data:[    
+                    <%= parseInt(JSON.stringify(result4[0].cantidad)) %>,
+                    <%= parseInt(JSON.stringify(result3[0].cantidad)) %>,
+                    <%= parseInt(JSON.stringify(result2[0].cantidad)) %>,
+                    <%= parseInt(JSON.stringify(result1[0].cantidad)) %>
                     ]
                 }
                ]
             },
             options: {
-                lineAt: {{ (parseInt(JSON.stringify(datos.result1[0].cantidad)) + parseInt(JSON.stringify(datos.result2[0].cantidad)) + parseInt(JSON.stringify(datos.result3[0].cantidad)) + parseInt(JSON.stringify(datos.result4[0].cantidad)) )/4 }},
+                lineAt: <%= (parseInt(JSON.stringify(result1[0].cantidad)) + parseInt(JSON.stringify(result2[0].cantidad)) + parseInt(JSON.stringify(result3[0].cantidad)) + parseInt(JSON.stringify(result4[0].cantidad)) )/4 %>,
                 title:{
                     display: true,
                     text: 'Cuentas de Usuarios Desvinculados',
@@ -127,3 +128,4 @@
         });
     }
     </script>
+<% include partials/_footer.ejs %>

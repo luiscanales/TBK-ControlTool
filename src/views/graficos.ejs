@@ -25,7 +25,6 @@
                     backgroundColor: window.chartColors.blue,
                     stack: 'Stack 0',
                     data:[
-                    
                     <%= parseInt(JSON.stringify(result4[0].cantidad)) %>,
                     <%= parseInt(JSON.stringify(result3[0].cantidad)) %>,
                     <%= parseInt(JSON.stringify(result2[0].cantidad)) %>,
@@ -129,4 +128,20 @@
         });
     }
     </script>
+
+<!--FORM-->
+<div class="col-md-5">
+    <div class="card">
+      <div class="card-body">
+        <form action="/graficos/comentario" method="post">
+          <div class="form-group">
+            <input class="form-control" type="text" name="comentario" placeholder="Insertar Comentario">
+          </div>
+          <button class="btn btn-primary" type="submit">
+            Grabar
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
 <% include partials/_footer.ejs %>

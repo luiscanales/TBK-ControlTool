@@ -10,6 +10,7 @@ import { UploadComponent } from './upload/upload.component';
 import { GraphsComponent } from './graphs/graphs.component';
 import { HomeComponent } from './home/home.component';
 import { AuthService } from './auth.service';
+import {GraphsService } from './shared/graphs.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { AuthService } from './auth.service';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [AuthService],
+  providers: [AuthService,GraphsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
