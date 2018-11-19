@@ -1,0 +1,28 @@
+<% include _header.ejs %>
+
+
+<div class="card text-center">
+    <div class="card-header">
+      Ingreso de documento desvinculados
+    </div>
+    <div class="card-body">
+      <!-- <h5 class="card-title">Special title treatment</h5> -->
+      <p class="card-text" >
+        <h4>Selecciona archivo de desvinculación</h4>
+        <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
+        <div class="form-inline" >
+            <div class="form-group content" style="inner">
+            <input type="file" name="files[]" id="js-upload-files" multiple>
+            </div>
+            <button type="submit" class="btn btn-sm btn-primary" id="js-upload-submit">Upload files</button>
+        </div>
+        </form>
+      </p>
+    </div>
+    <div class="card-footer text-muted">
+      2 days ago
+    </div>
+  </div>
+
+
+<% include _footer.ejs %>

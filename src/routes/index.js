@@ -3,13 +3,33 @@ const router = express.Router();
 
 const Task = require('../models/task')
 
+//middleware para verificar token
+// function verifyToken(req, res, next){
+//     if (!req.headers.authorization){
+//         res.status(401).send('Sesión no autorizada.')
+//     }
+//     let token = req.headers.authorization.split(' ')[1]
+//     if (token === null){
+//         res.status(401).send('Sesión no autorizada.')
+//     } else {
+//         let payload = jwt.verify(token, 'TBKCTSecretKey')
+//         if (!payload){
+//             res.status(401).send('Sesión no autorizada.')
+//         } else {
+//             req.userId = payload.subject
+//             next()
+//         }
+//     }
+// }
+
+
 // Rutas, se adjuntan unas como ejemplo...
 
 router.get('/register', function(req,res){
     res.render('partials/_register');
 });
 
-router.get('/',async (req,res)=>{
+router.get('/', async (req,res)=>{
     const tasks = await Task.find();
     console.log(tasks)
     res.render('index',{
@@ -29,8 +49,8 @@ router.get('/login', function(req,res){
     res.render('partials/_login');
 });
 
-router.get('/desvinculacion', function(req,res){
-    res.render('partials/_modDesvinculacion')
+router.get('/upload', function(req,res){
+    res.render('partials/_upload')
 });
 
 router.post('/add', async (req,res)=>{
