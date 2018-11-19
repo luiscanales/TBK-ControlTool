@@ -15,16 +15,16 @@
           <a class="nav-link" *ngIf="!_authService.loggedIn()" routerLink="/login" routerLinkActive="active">Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" *ngIf="_authService.loggedIn()" style="cursor: pointer" (click)="_authService.logoutUser()">Logout</a>
+          <a class="nav-link" *ngIf="_authService.loggedIn()" style="cursor: pointer" routerLink="/logout">Logout</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" *ngIf="_authService.loggedIn()" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Módulos
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" routerLink="/upload" routerLinkActive="active">Desvinculación Colaboradores</a>
-            <a class="dropdown-item" routerLink="/graphs" routerLinkActive="active">Métricas</a>
-            <a class="dropdown-item" href="#">Something else here</a>
+            <a class="dropdown-item" href="http://localhost:3000/desvinculados" routerLinkActive="active">Desvinculación Colaboradores</a>
+            <a class="dropdown-item" href="http://localhost:3000/graficos" routerLinkActive="active">Reporte Actual</a>
+            <a class="dropdown-item" href="http://localhost:3000/anterior" routerLinkActive="active">Reportes Anteriores</a>
           </div>
         </li>
         <li class="nav-item">

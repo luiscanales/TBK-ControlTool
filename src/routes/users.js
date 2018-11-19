@@ -12,7 +12,7 @@ router.post('/register', userCtrl.createUser);
 
 router.get('/list', userCtrl.getUsers);
 
-router.get('/:id', userCtrl.getUser);
+// router.get('/:id', userCtrl.getUser);
 
 router.put('/:id', userCtrl.editUser);
 

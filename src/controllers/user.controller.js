@@ -1,3 +1,5 @@
+'use stricts'
+
 const User = require('../models/user');
 const mongoose = require('mongoose');
 const express = require('express');
@@ -5,6 +7,7 @@ const bcrypt = require('bcrypt');
 const _ = require('lodash');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
+
 const userCtrl = {};
 
 userCtrl.createUser = async(req, res, next) => {
@@ -36,8 +39,14 @@ userCtrl.createUser = async(req, res, next) => {
 }
 
 userCtrl.getUsers = async (req, res) => {
-    const users = await User.find();
-    res.json(users);
+    User.find({}, (err, users) => {
+        if (err) return res.status(500).send({message: `Error al realizar petición: ${err}`})
+        if (!users) return res.status(404).send({message: 'No existen usuarios'})
+
+        res.send(200, { users })
+    })
+    // const users = await User.find();
+    // res.json(users);
 }
 
 userCtrl.deleteUser = (req, res, next) => {
@@ -62,12 +71,21 @@ userCtrl.getUser = async(req, res) => {
 }
 
 userCtrl.editUser = async(req, res) => {
-    const {id} = req.params;
-    const user = {
-        position: req.body.position
-    };
-    await User.findByIdAndUpdate(id, {$set: user}, {new: true});
-    res.json('Usuario actualizado.')
+    let userId = req.params.userId
+    let update = req.body
+
+    User.findByIdAndUpdate(userId, update, (err, userUpdated) => {
+        if (err) return res.status(500).send({message: `Error al realizar petición: ${err}`})
+
+        res.status(200).send({ user: userUpdated })
+    })
+
+    // const {id} = req.params;
+    // const user = {
+    //     position: req.body.position
+    // };
+    // await User.findByIdAndUpdate(id, {$set: user}, {new: true});
+    // res.json('Usuario actualizado.')
 }
 
 module.exports = userCtrl;

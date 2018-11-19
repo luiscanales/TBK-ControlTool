@@ -15,6 +15,7 @@ import { SuccessfullyComponent } from './successfully/successfully.component';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './token-interceptor.service';
 import { UserslistComponent } from './userslist/userslist.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { UserslistComponent } from './userslist/userslist.component';
     GraphsComponent,
     HomeComponent,
     SuccessfullyComponent,
-    UserslistComponent
+    UserslistComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,

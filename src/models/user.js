@@ -1,3 +1,5 @@
+'use strict'
+
 const mongoose = require('mongoose');
 
 // Esquema de usuario
@@ -29,6 +31,14 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    signUpDate: {
+        type: Date,
+        default: Date.now()
+    },
+    lastLogin: {
+        type: Date,
+        
+    }
 });
 
 module.exports = mongoose.model('User', userSchema);
