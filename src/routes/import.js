@@ -172,10 +172,6 @@ router.post('/ingreso', archivo.single('file'), function(req, res) {
                                 periodo: body.mes,
                                 año: body.año
                             }
-<<<<<<< HEAD
-
-=======
->>>>>>> da56d4d7494c2bbd16baf918278eefdb361de99b
                         });
 
                     } else if (body.tipo === 'Colaboradores') {
@@ -214,10 +210,7 @@ router.post('/ingreso', archivo.single('file'), function(req, res) {
         //error deleting the file
         console.log('No se pudo eliminar el archivo')
     };
-<<<<<<< HEAD
-
-=======
->>>>>>> da56d4d7494c2bbd16baf918278eefdb361de99b
+    return res.redirect('/desvinculados');
 });
 
 
