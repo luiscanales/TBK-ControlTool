@@ -43,6 +43,6 @@ app.listen(app.get('port'), () => {
     app.use('/auth', authRoutes);
     app.use('/events', eventsRoutes);
     app.use('/', indexRoutes);
-    app.use('/upload', importRoutes);
+    app.use('/imports', importRoutes);
     
 });

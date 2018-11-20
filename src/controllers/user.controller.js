@@ -43,7 +43,7 @@ userCtrl.getUsers = async (req, res) => {
         if (err) return res.status(500).send({message: `Error al realizar petición: ${err}`})
         if (!users) return res.status(404).send({message: 'No existen usuarios'})
 
-        res.send(200, { users })
+        res.send(200, users)
     })
     // const users = await User.find();
     // res.json(users);

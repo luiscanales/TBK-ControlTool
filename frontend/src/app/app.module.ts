@@ -16,6 +16,7 @@ import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './token-interceptor.service';
 import { UserslistComponent } from './userslist/userslist.component';
 import { LogoutComponent } from './logout/logout.component';
+import { UserslistService } from './userslist.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { LogoutComponent } from './logout/logout.component';
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,
     multi: true
-  }],
+  }, 
+  UserslistService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

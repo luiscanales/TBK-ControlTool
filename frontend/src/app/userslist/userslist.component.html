@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
   <div class="row">
     <div class="col-md3">
       Nombre
@@ -16,4 +16,29 @@
       Acciones
     </div>
   </div>
-</div>
+</div> -->
+<hr>
+<!-- <input type="hidden" name="_id" #_id="ngModel" [(ngModel)] = "userListService.selectedUser._id"> -->
+<table>
+  <thead>
+    <th>Nombre</th>
+    <th>Username</th>
+    <th>Cargo</th>
+    <th>e-mail</th>
+    <th>Operaciones</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of userListService.users">
+      <td>{{ user.name }}</td>
+      <td>{{ user.username }}</td>
+      <td>{{ user.position || user.cargo }}</td>
+      <td>{{ user.email }}</td>
+      <td>
+          <button (click)="editUser(user)" type="button" class="btn btn-primary">Editar</button>
+      </td>
+      <td>
+          <button (click)="deleteUser(user._id)" type="button" class="btn btn-danger">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
