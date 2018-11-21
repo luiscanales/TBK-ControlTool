@@ -9,21 +9,38 @@
           <a class="nav-link" routerLink="/" routerLinkActive="active">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
+          <a class="nav-link" *ngIf="_authService.loggedIn()" routerLink="/register" routerLinkActive="active">Register</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+          <a class="nav-link" *ngIf="!_authService.loggedIn()" routerLink="/login" routerLinkActive="active">Login</a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Módulos
-          </a>
+        <!-- <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" *ngIf="_authService.loggedIn()" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Módulos
+        </a> 
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" routerLink="/upload" routerLinkActive="active">Desvinculación Colaboradores</a>
-            <a class="dropdown-item" routerLink="/graphs" routerLinkActive="active">Métricas</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
+          <a class="dropdown-item" href="http://localhost:3000/desvinculados" routerLinkActive="active">Desvinculación Colaboradores</a>
+          <a class="dropdown-item" href="http://localhost:3000/graficos" routerLinkActive="active">Reporte Actual</a>
+          <a class="dropdown-item" href="http://localhost:3000/anterior" routerLinkActive="active">Reportes Anteriores</a>
+          <a class="dropdown-item" *ngIf="_authService.loggedIn()" routerLink="/userslist" routerLinkActive="active">Gestión de Usuarios</a>
+        </div> -->
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="_authService.loggedIn()" routerLinkActive="active" href="http://localhost:3000/desvinculados">Desvinculación Colaboradores</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="_authService.loggedIn()" routerLinkActive="active" href="http://localhost:3000/graficos">Reporte Actual</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="_authService.loggedIn()" routerLinkActive="active" href="http://localhost:3000/anterior">Reportes Anteriores</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="_authService.loggedIn()" routerLinkActive="active" routerLink="/userslist">Gestión de Usuarios</a>
+        </li>
+      
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="_authService.loggedIn()" routerLinkActive="active" routerLink="/logout">Logout</a>
+        </li>
+        
       </ul>
     </div>
   </nav>

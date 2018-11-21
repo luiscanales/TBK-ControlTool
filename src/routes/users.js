@@ -3,55 +3,20 @@ const mongoose = require('mongoose');
 const express = require('express');
 const bcrypt = require('bcrypt');
 const _ = require('lodash');
+const jwt = require('jsonwebtoken');
+const userCtrl = require('../controllers/user.controller');
 const router = express.Router();
 
-router.post('/register', async(req, res,next) => {
 
-    let user = await User.findOne({email: req.body.email});
-    if (user) return res.status(400).send('Usuario ya registrado.');
+router.post('/register', userCtrl.createUser);
 
-    
-    user = new User({
-        _id: new mongoose.Types.ObjectId(),
-        name: req.body.name,
-        username: req.body.username,
-        email: req.body.email,
-        // phone: req.body.phone,
-        cargo: req.body.cargo,
-        password: bcrypt.hashSync(req.body.password, 12)
-    });
-    user
-        .save((err, userDB) => {
-            if (err) {
-                return res.status(400).json({
-                    ok: false,
-                    err
-                })
-            }
+router.get('/list', userCtrl.getUsers);
 
-            res.json({
-                ok: true,
-                user: userDB
-            })
-        })
-        
-});
+// router.get('/:id', userCtrl.getUser);
 
-router.delete('/:userID', (req, res, next) =>{    
-    User.remove({_id: req.params.userID})
-        .exec()
-        .then(result => {
-            res.status(200).json({
-                message: "Usuario eliminado."
-            });
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({ 
-                error: err
-            });
-        });
-});
+router.put('/:id', userCtrl.editUser);
+
+router.delete('/delete/:userID', userCtrl.deleteUser);
 
 
 module.exports = router; 

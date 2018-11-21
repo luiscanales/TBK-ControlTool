@@ -14,9 +14,10 @@ router.post('/', async(req, res,next) => {
     const validPassword = await bcrypt.compare(req.body.password, user.password);
     if (!validPassword) return res.status(400).send('Credenciales (Usuario y/o password) incorrectas.');
 
-    const token = jwt.sign({ _id: user._id}, 'jwtPrivateKey');
+    const payload = { user: user }
+    const token = jwt.sign(payload, 'jwtPrivateKey');
 
-    res.send(token);
+    res.status(200).send({token});
 });
 
 // function validate(req){

@@ -1,3 +1,5 @@
+'use strict'
+
 const mongoose = require('mongoose');
 
 // Esquema de usuario
@@ -21,7 +23,7 @@ const userSchema = mongoose.Schema({
         trim: true,
         match: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
     },
-    cargo:{
+    position:{
         type: String,
         required: true
     },
@@ -29,6 +31,14 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    signUpDate: {
+        type: Date,
+        default: Date.now()
+    },
+    lastLogin: {
+        type: Date,
+        
+    }
 });
 
 module.exports = mongoose.model('User', userSchema);
