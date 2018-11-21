@@ -33,8 +33,6 @@ app.set('view engine', 'ejs');
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }));
 
-
-
 //starting the server
 app.listen(app.get('port'), () => {
     console.log(`Servidor conectado en puerto ${app.get('port')}`);

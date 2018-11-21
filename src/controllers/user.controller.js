@@ -10,16 +10,22 @@ const router = express.Router();
 
 const userCtrl = {};
 
+String.prototype.capitalize = function(allWords) {
+    return (allWords) ? // if all words
+       this.split(' ').map(word => word.capitalize()).join(' ') : //break down phrase to words then  recursive calls until capitalizing all words
+       this.charAt(0).toUpperCase() + this.slice(1); // if allWords is undefined , capitalize only the first word , mean the first char of the whole string
+ }
+
 userCtrl.createUser = async(req, res, next) => {
     let user = await User.findOne({email: req.body.email});
     if (user) return res.status(400).send('No fue posible registrar debido a mail registrado anteriormente.');
 
     user = new User({
         _id: new mongoose.Types.ObjectId(),
-        name: req.body.name,
+        name: req.body.name.capitalize(true),
         username: req.body.username,
         email: req.body.email,
-        position: req.body.position,
+        position: req.body.position.capitalize(),
         password: bcrypt.hashSync(req.body.password, 10)
     });
     user.save((err, userDB) => {
@@ -39,6 +45,9 @@ userCtrl.createUser = async(req, res, next) => {
 }
 
 userCtrl.getUsers = async (req, res) => {
+    console.log("Hola Yerson");
+    console.log("Subject", req.body);
+    console.log("Usuario", req.token);
     User.find({}, (err, users) => {
         if (err) return res.status(500).send({message: `Error al realizar petición: ${err}`})
         if (!users) return res.status(404).send({message: 'No existen usuarios'})

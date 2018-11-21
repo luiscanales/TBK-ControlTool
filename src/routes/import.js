@@ -55,6 +55,7 @@ const Cruce = require('../models/Cruce')
 
 //obtener Colab, Desv o Cruce
 router.post('/lista', function(req, res) {
+    
     let body = req.body;
     let tipo = body.tipo;
     let mes = body.periodo;

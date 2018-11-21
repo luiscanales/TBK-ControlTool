@@ -17,6 +17,10 @@ export class UserslistService {
     return this.http.get('http://localhost:3000/users/list');
   }
 
+  getUser(_id: string) {
+    return this.http.get(`http://localhost:3000/users/list/${_id}`)
+  }
+
   editUser(user: User) {
     return this.http.put(this.URL_API + `${user._id}`, user);
   }

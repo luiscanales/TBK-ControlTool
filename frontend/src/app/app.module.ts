@@ -17,6 +17,7 @@ import { TokenInterceptorService } from './token-interceptor.service';
 import { UserslistComponent } from './userslist/userslist.component';
 import { LogoutComponent } from './logout/logout.component';
 import { UserslistService } from './userslist.service';
+import { AdmincomponentComponent } from './admincomponent/admincomponent.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { UserslistService } from './userslist.service';
     HomeComponent,
     SuccessfullyComponent,
     UserslistComponent,
-    LogoutComponent
+    LogoutComponent,
+    AdmincomponentComponent
   ],
   imports: [
     BrowserModule,

@@ -17,21 +17,21 @@
               <div class="input-group-prepend">
                   <span class="input-group-text"> <i class="fa fa-user"></i> </span>
               </div>
-                  <input [(ngModel)]="registerUserData.name" name="name" class="form-control" placeholder="Ingrese su nombre y apellido/s>" type="text">
+                  <input [(ngModel)]="registerUserData.name" name="name" class="form-control" placeholder="Ingrese su nombre y apellido/s" type="text" required>
               </div> <!-- form-group// -->
 
               <div class="form-group input-group">
               <div class="input-group-prepend">
                   <span class="input-group-text"> <i class="fa fa-user"></i> </span>
               </div>
-                  <input [(ngModel)]="registerUserData.username" name="username" class="form-control" placeholder="Ingrese su nombre de usuario>" type="text">
+                  <input [(ngModel)]="registerUserData.username" name="username" class="form-control" placeholder="Ingrese su nombre de usuario" type="text" required>
               </div> <!-- form-group// -->
                   
               <div class="form-group input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
               </div>
-                  <input [(ngModel)]="registerUserData.email" name="email" class="form-control" placeholder="Ingrese su email" type="email">
+                  <input [(ngModel)]="registerUserData.email" name="email" class="form-control" placeholder="Ingrese su email" type="email" required>
               </div> <!-- form-group// -->
 
               <div class="form-group input-group">
@@ -39,7 +39,8 @@
                   <span class="input-group-text"> <i class="fa fa-building"></i> </span>
                 </div>
                 <div class="form-grup">
-                  <select name="position" id="position" class="form-control" [(ngModel)]="registerUserData.position">
+                  <select name="position" id="position" class="form-control" [(ngModel)]="registerUserData.position" required>
+                    <option value="" selected disabled hidden>Cargo</option>
                     <option value="Administrador">Administrador</option>
                     <option value="Analista">Analista</option>
                     <option value="Gestión">Gestión</option>
@@ -61,8 +62,8 @@
               </div>  form-group// -->                                      
               <div class="form-group">
                   <button (click)="registerUser()" type="submit" class="btn btn-primary"> Crear Usuario  </button>
-              </div> <!-- form-group// -->      
-              <!-- <p class="text-center">Have an account? <a href="">Log In</a> </p> -->
+              </div>
+              
             </form>
           </div>
           <div class="card-footer text-muted">
