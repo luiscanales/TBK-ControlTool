@@ -6,7 +6,7 @@ const CruceSchema = new Schema({
     _id: {
         año: {
             type: Number,
-            required: true,
+            required: true
 
         },
         periodo: {

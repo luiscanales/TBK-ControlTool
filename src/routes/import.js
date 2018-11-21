@@ -84,7 +84,8 @@ router.post('/lista', function(req, res) {
         });
 
     } else if (tipo == 'Desvinculados') {
-        Desvinculados.find({ _id: { periodo: mes, año: año } }, (err, listaDB) => {
+        Desvinculados.find({ fecha: { periodo: mes, año: año } }, (err, listaDB) => {
+            console.log(listaDB)
             if (err) {
                 return res.status(400).json({
                     ok: false,
@@ -168,7 +169,7 @@ router.post('/ingreso', archivo.single('file'), function(req, res) {
 
                         var datos = new Desvinculados({
                             colab: obj,
-                            _id: {
+                            fecha: {
                                 periodo: body.mes,
                                 año: body.año
                             }
@@ -242,7 +243,7 @@ router.post('/borrar', function(req, res) {
             }
         });
     } else if (tipo == 'Desvinculados') {
-        Desvinculados.deleteOne({ _id: { periodo: mes, año: año } }, function(err) {
+        Desvinculados.deleteMany({ fecha: { periodo: mes, año: año } }, function(err) {
 
             if (err) {
                 return res.status(400).json({
@@ -282,7 +283,7 @@ router.post('/borrar', function(req, res) {
             } else {
                 res.json({
                     ok: true,
-                    msg: 'Se elimino el cruce de datos.'
+                    msg: 'Ya no existe Cruce ' + mes + ' ' + año + '.'
                 });
             }
         });
@@ -294,7 +295,8 @@ router.post('/cruce', function(req, res) {
     let mes = body.periodo;
     let años = parseInt(body.año);
 
-    Desvinculados.find({ _id: { periodo: mes, año: años } }, (err, desvDB) => {
+    Desvinculados.find({ fecha: { periodo: mes, año: años } }, (err, desvDB) => {
+        //console.log(desvDB[0].colab);
         if (err) {
             return res.status(400).json({
                 ok: false,
@@ -326,11 +328,14 @@ router.post('/cruce', function(req, res) {
 
                     var arr = [];
 
-                    for (let desv of desvDB[0].colab) {
-                        for (let colab of colabDB[0].colab) {
-                            if (desv.id === colab.id) {
-                                arr.push(desv)
+                    for (let desvinculados of desvDB) {
+                        for (let desv of desvinculados.colab) {
+                            for (let colab of colabDB[0].colab) {
+                                if (desv.id === colab.id) {
+                                    arr.push(desv)
+                                }
                             }
+
                         }
                     }
 
