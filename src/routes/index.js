@@ -3,7 +3,7 @@ var async = require('async');
 const router = express.Router();
 
 const Com = require('../models/Comentarios')
-const Colab = require('../models/Desvinculados')
+const Colab = require('../models/Cruce')
 // Rutas, se adjuntan unas como ejemplo...
 
 router.get('/register', function(req,res){
@@ -51,7 +51,7 @@ router.get('/graficos', function(req,res){  //cuenta los colaboradores
                 }
             },
             { 
-                $unwind: "$colab"
+                $unwind: "$colab_desv"
             },
             {
                 $count: "cantidad"
@@ -75,7 +75,7 @@ router.get('/graficos', function(req,res){  //cuenta los colaboradores
                 }
             },
             { 
-                $unwind: "$colab"
+                $unwind: "$colab_desv"
             },
             {
                 $count: "cantidad"
@@ -103,7 +103,7 @@ router.get('/graficos', function(req,res){  //cuenta los colaboradores
                 }
             },
             { 
-                $unwind: "$colab"
+                $unwind: "$colab_desv"
             },
             {
                 $count: "cantidad"
@@ -135,7 +135,7 @@ router.get('/graficos', function(req,res){  //cuenta los colaboradores
                 }
             },
             { 
-                $unwind: "$colab"
+                $unwind: "$colab_desv"
             },
             {
                 $count: "cantidad"
@@ -207,7 +207,7 @@ router.get('/reporteanterior', function(req,res){
                 }
             },
             { 
-                $unwind: "$colab"
+                $unwind: "$colab_desv"
             },
             {
                 $count: "cantidad"
@@ -231,7 +231,7 @@ router.get('/reporteanterior', function(req,res){
                 }
             },
             { 
-                $unwind: "$colab"
+                $unwind: "$colab_desv"
             },
             {
                 $count: "cantidad"
@@ -259,7 +259,7 @@ router.get('/reporteanterior', function(req,res){
                 }
             },
             { 
-                $unwind: "$colab"
+                $unwind: "$colab_desv"
             },
             {
                 $count: "cantidad"
@@ -291,7 +291,7 @@ router.get('/reporteanterior', function(req,res){
                 }
             },
             { 
-                $unwind: "$colab"
+                $unwind: "$colab_desv"
             },
             {
                 $count: "cantidad"

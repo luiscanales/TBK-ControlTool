@@ -25,16 +25,16 @@
                     backgroundColor: window.chartColors.blue,
                     stack: 'Stack 0',
                     data:[
-                    <%= parseInt(JSON.stringify(result4[0].cantidad)) %>,
-                    <%= parseInt(JSON.stringify(result3[0].cantidad)) %>,
-                    <%= parseInt(JSON.stringify(result2[0].cantidad)) %>,
-                    <%= parseInt(JSON.stringify(result1[0].cantidad)) %>
+                    eval('<%= parseInt(JSON.stringify(result4[0].cantidad))%>'),
+                    eval('<%= parseInt(JSON.stringify(result3[0].cantidad))%>'),
+                    eval('<%= parseInt(JSON.stringify(result2[0].cantidad))%>'),
+                    eval('<%= parseInt(JSON.stringify(result1[0].cantidad))%>')
                     ]
                 }
                ]
             },
             options: {
-                lineAt: <%= (parseInt(JSON.stringify(result1[0].cantidad)) + parseInt(JSON.stringify(result2[0].cantidad)) + parseInt(JSON.stringify(result3[0].cantidad)) + parseInt(JSON.stringify(result4[0].cantidad)) )/4 %>,
+                lineAt: eval('<%= (parseInt(JSON.stringify(result1[0].cantidad)) + parseInt(JSON.stringify(result2[0].cantidad)) + parseInt(JSON.stringify(result3[0].cantidad)) + parseInt(JSON.stringify(result4[0].cantidad)) )/4 %>'),
                 title:{
                     display: true,
                     text: 'Cuentas de Usuarios Desvinculados',

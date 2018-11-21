@@ -210,7 +210,6 @@ router.post('/ingreso', archivo.single('file'), function(req, res) {
         //error deleting the file
         console.log('No se pudo eliminar el archivo')
     };
-    return res.redirect('/desvinculados');
 });
 
 
@@ -359,7 +358,6 @@ router.post('/cruce', function(req, res) {
             });
         }
     });
-    return res.redirect('/desvinculados');
 });
 
 module.exports = router;
