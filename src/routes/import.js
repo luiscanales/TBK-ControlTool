@@ -54,8 +54,8 @@ const Cruce = require('../models/Cruce')
 
 
 //obtener Colab, Desv o Cruce
+//obtener Colab, Desv o Cruce
 router.post('/lista', function(req, res) {
-    
     let body = req.body;
     let tipo = body.tipo;
     let mes = body.periodo;
@@ -71,22 +71,20 @@ router.post('/lista', function(req, res) {
                 });
 
             } else if (listaDB[0] == undefined) {
-                res.status(400).json({
-                    ok: false,
-                    msg: 'No existe Colaboradores en de datos en la DB'
-                });
+                var msg = 'No existe lista de colaboradores en el periodo';
+                res.render('confirmacion', { msg: msg });
 
             } else {
-                res.json({
-                    ok: true,
-                    lista: listaDB
-                });
+                var arr = [];
+                for (let colab of listaDB[0].colab) {
+                    arr.push(colab)
+                }
+                res.render('lista', { lista: arr });
             };
         });
 
     } else if (tipo == 'Desvinculados') {
         Desvinculados.find({ fecha: { periodo: mes, año: año } }, (err, listaDB) => {
-            console.log(listaDB)
             if (err) {
                 return res.status(400).json({
                     ok: false,
@@ -94,16 +92,15 @@ router.post('/lista', function(req, res) {
                 });
 
             } else if (listaDB[0] == undefined) {
-                res.status(400).json({
-                    ok: false,
-                    msg: 'No existe Desvinculados en de datos en la DB'
-                });
+                var msg = 'No existe lista de desvinculados en el periodo';
+                res.render('confirmacion', { msg: msg });
 
             } else {
-                res.json({
-                    ok: true,
-                    lista: listaDB
-                });
+                var arr = [];
+                for (let colab of listaDB[0].colab) {
+                    arr.push(colab)
+                }
+                res.render('lista', { lista: arr });
             };
         });
 
@@ -116,16 +113,15 @@ router.post('/lista', function(req, res) {
                 });
 
             } else if (listaDB[0] == undefined) {
-                res.status(400).json({
-                    ok: false,
-                    msg: 'No existe Cruce en de datos en la DB'
-                });
+                var msg = 'No existe lista de cruce de datos en el periodo';
+                res.render('confirmacion', { msg: msg });
 
             } else {
-                res.json({
-                    ok: true,
-                    lista: listaDB
-                });
+                var arr = [];
+                for (let colab_desv of listaDB[0].colab_desv) {
+                    arr.push(colab_desv)
+                }
+                res.render('lista', { lista: arr });
             };
         });
     }
@@ -140,8 +136,8 @@ router.post('/ingreso', archivo.single('file'), function(req, res) {
 
     /** Multer gives us file info in req.file object */
     if (!file) {
-        res.json({ error_code: 1, err_desc: "Error a en la subida de archivo" });
-        return;
+        var msg = 'Error al ingresar el archivo';
+        res.render('confirmacion', { msg: msg });
     }
     /** Check the extension of the incoming file and 
      *  use the appropriate module
@@ -170,7 +166,7 @@ router.post('/ingreso', archivo.single('file'), function(req, res) {
 
                         var datos = new Desvinculados({
                             colab: obj,
-                            fecha: {
+                            _id: {
                                 periodo: body.mes,
                                 año: body.año
                             }
@@ -194,11 +190,8 @@ router.post('/ingreso', archivo.single('file'), function(req, res) {
                                 err
                             });
                         }
-
-                        res.json({
-                            ok: true,
-                            msg: body.tipo + ' Grabados'
-                        });
+                        var msg = body.tipo + ' Grabados';
+                        res.render('confirmacion', { msg: msg });
                     });
                 });
             }
@@ -231,20 +224,16 @@ router.post('/borrar', function(req, res) {
                 });
 
             } else if (mes === undefined || año === undefined) {
-                res.json({
-                    ok: false,
-                    msg: 'Error al borrar lista de colaboradores.'
-                });
+                var msg = 'Error al ingresar los datos';
+                res.render('confirmacion', { msg: msg });
 
             } else {
-                res.json({
-                    ok: true,
-                    msg: 'Se elimino la lista de colaboradores.'
-                });
+                var msg = 'Se elimino la lista de colaboradores.';
+                res.render('confirmacion', { msg: msg });
             }
         });
     } else if (tipo == 'Desvinculados') {
-        Desvinculados.deleteMany({ fecha: { periodo: mes, año: año } }, function(err) {
+        Desvinculados.deleteOne({ _id: { periodo: mes, año: año } }, function(err) {
 
             if (err) {
                 return res.status(400).json({
@@ -253,22 +242,17 @@ router.post('/borrar', function(req, res) {
                 });
 
             } else if (mes === undefined || año === undefined) {
-                res.json({
-                    ok: false,
-                    msg: 'Error al borrar lista de desvinculados.'
-                });
+                var msg = 'Error al ingresar los datos';
+                res.render('confirmacion', { msg: msg });
 
             } else {
-                res.json({
-                    ok: true,
-                    msg: 'Se elimino la lista de desvinculados.'
-                });
+                var msg = 'Se elimino la lista de desvinculados.';
+                res.render('confirmacion', { msg: msg });
             }
         });
 
     } else if (tipo == 'Cruces') {
         Cruce.deleteOne({ _id: { periodo: mes, año: año } }, function(err) {
-
             if (err) {
                 return res.status(400).json({
                     ok: false,
@@ -276,16 +260,12 @@ router.post('/borrar', function(req, res) {
                 });
 
             } else if (mes === undefined || año === undefined) {
-                res.json({
-                    ok: false,
-                    msg: 'Error al borrar cruce de datos'
-                });
+                var msg = 'Error al ingresar los datos';
+                res.render('confirmacion', { msg: msg });
 
             } else {
-                res.json({
-                    ok: true,
-                    msg: 'Ya no existe Cruce ' + mes + ' ' + año + '.'
-                });
+                var msg = 'Se elimino cruce de datos.';
+                res.render('confirmacion', { msg: msg });
             }
         });
     }
@@ -297,7 +277,6 @@ router.post('/cruce', function(req, res) {
     let años = parseInt(body.año);
 
     Desvinculados.find({ fecha: { periodo: mes, año: años } }, (err, desvDB) => {
-        //console.log(desvDB[0].colab);
         if (err) {
             return res.status(400).json({
                 ok: false,
@@ -305,10 +284,8 @@ router.post('/cruce', function(req, res) {
             });
 
         } else if (desvDB[0] === undefined) {
-            return res.status(400).json({
-                ok: false,
-                msg: 'No existe Lista de Desvinculados'
-            })
+            var msg = 'No existe lista de Desvinculados del periodo';
+            res.render('confirmacion', { msg: msg });
 
         } else {
             Colaboradores.find({ _id: { periodo: mes, año: años } }, (err, colabDB) => {
@@ -320,23 +297,18 @@ router.post('/cruce', function(req, res) {
                     });
 
                 } else if (colabDB[0] === undefined) {
-                    return res.status(400).json({
-                        ok: false,
-                        msg: 'No existe Lista de Colaboradores'
-                    });
+                    var msg = 'No existe lista de Colaboradores del periodo';
+                    res.render('confirmacion', { msg: msg });
 
                 } else {
 
                     var arr = [];
 
-                    for (let desvinculados of desvDB) {
-                        for (let desv of desvinculados.colab) {
-                            for (let colab of colabDB[0].colab) {
-                                if (desv.id === colab.id) {
-                                    arr.push(desv)
-                                }
+                    for (let desv of desvDB[0].colab) {
+                        for (let colab of colabDB[0].colab) {
+                            if (desv.id === colab.id) {
+                                arr.push(desv)
                             }
-
                         }
                     }
 
@@ -355,11 +327,8 @@ router.post('/cruce', function(req, res) {
                                 err
                             });
                         }
-
-                        res.json({
-                            ok: true,
-                            msg: 'Cruce ' + mes + ' ' + años + ' Grabados'
-                        });
+                        var msg = 'Cruce ' + mes + ' ' + años + ' Grabados';
+                        res.render('confirmacion', msg);
                     });
                 }
             });
