@@ -1,0 +1,95 @@
+<% include _header.ejs %>
+
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-5">
+            <div class="card bg-light">
+                <article class="card-body mx-auto" style="max-width: 400px;">
+                <h4 class="card-title mt-3 text-center">Crear cuenta de usuario TBK Control Tool</h4>
+                <!-- <p class="text-center">Get started with your free account</p> -->
+                
+                <form>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                    </div>
+                    <input name="nombre" class="form-control" placeholder="Ingresa tu nombre" type="text" required>
+                </div>
+
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                        </div>
+                    <input name="usuario" class="form-control" placeholder="Ingresa tu nombre de usuario" type="text" required>
+                </div>
+                
+
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                    </div>
+                    <input name="email" class="form-control" placeholder="Ingresa tu dirección de email" type="email" required>
+                </div> 
+                
+
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+                    </div>
+                    <select class="custom-select" style="max-width: 120px;">
+                        <option selected="">+569</option>
+                    </select>
+                    <input name="phone" class="form-control" placeholder="Ingresa número de teléfono" type="text" required>
+                </div> 
+                
+
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-building"></i> </span>
+                    </div>
+                    <select class="form-control" required>
+                        <option name="cargo" >Selecciona cargo</option>
+                        <option name="cargo" selected="administrador">Administrador</option>
+                        <option name="cargo" selected="analista">Analista</option>
+                        <option name="cargo" selected="gestion">Gestión</option>
+                    </select>
+                </div>
+                
+
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                    </div>
+                    <input name="password" class="form-control" placeholder="Ingresa contraseña" type="password" required>
+                </div> 
+                
+
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                    </div>
+                    <input name="confPassword" class="form-control" placeholder="Repite contraseña" type="password" required>
+                </div>
+                
+                
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block"> Crear cuenta TBKCT </button>
+                </div> 
+                
+                
+                <p class="text-center">Have an account? <a href="">Log In</a> </p>                                                                 
+            </form>
+            </article>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+</div> 
+
+
+
+<% include _footer.ejs %>

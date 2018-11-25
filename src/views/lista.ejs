@@ -1,0 +1,32 @@
+<% include partials/_header.ejs %>
+    <div id="browse_app">
+        <a class="btn btn-large btn-info" href="../desvinculados">Volver</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Cargo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(var i=0; i < lista.length; i++) { %>
+                <tr>
+                    <td>
+                        <%- JSON.stringify(lista[i].id) %>
+                    </td>
+                    <td>
+                        <%- JSON.stringify(lista[i].nombre) %>
+                    </td>
+                    <td>
+                        <%- JSON.stringify(lista[i].cargo) %>
+                    </td>
+                </tr>
+        </tbody>
+        <% } %>
+    </table>
+    <div id="browse_app">
+        <a class="btn btn-large btn-info" href="../desvinculados">Volver</a>
+    </div>
+    <% include partials/_footer.ejs %>

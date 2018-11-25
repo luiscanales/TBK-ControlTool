@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>TBK Control Tool</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="src/css/main.css" />
+
+    <script src="main.js"></script>
+</head>
+<body>
+
+    <!-- <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+        <a class="navbar-brand" href="http://localhost:4200/">TBK Control Tool</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="http://localhost:4200/" routerLinkActive="active">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" *ngIf="_authService.loggedIn()" href="http://localhost:4200/register" routerLinkActive="active">Register</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" *ngIf="_authService.loggedIn()" href="http://localhost:4200/logout" >Logout</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" *ngIf="_authService.loggedIn()" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Módulos
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="http://localhost:3000/desvinculados" routerLinkActive="active">Desvinculación Colaboradores</a>
+                <a class="dropdown-item" href="http://localhost:3000/graficos" routerLinkActive="active">Reporte Actual</a>
+                <a class="dropdown-item" href="http://localhost:3000/anterior" routerLinkActive="active">Reportes Anteriores</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" *ngIf="_authService.loggedIn()" href="http://localhost:4200/userslist" routerLinkActive="active">Usuarios</a>
+            </li>
+            </ul>
+        </div>
+        </nav> -->
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+        <a class="navbar-brand" href="#">TBK Control Tool</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="/" routerLinkActive="active">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" *ngIf="_authService.loggedIn()" href="http://localhost:4200/register" routerLinkActive="active">Register</a>
+            </li>
+            <!--
+            <li class="nav-item">
+                <a class="nav-link" *ngIf="!_authService.loggedIn()" routerLink="/login" routerLinkActive="active">Login</a>
+            </li>
+             <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" *ngIf="_authService.loggedIn()" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Módulos
+            </a> 
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="http://localhost:3000/desvinculados" routerLinkActive="active">Desvinculación Colaboradores</a>
+                <a class="dropdown-item" href="http://localhost:3000/graficos" routerLinkActive="active">Reporte Actual</a>
+                <a class="dropdown-item" href="http://localhost:3000/anterior" routerLinkActive="active">Reportes Anteriores</a>
+                <a class="dropdown-item" *ngIf="_authService.loggedIn()" routerLink="/userslist" routerLinkActive="active">Gestión de Usuarios</a>
+            </div> -->
+            <li class="nav-item">
+                <a class="nav-link" *ngIf="_authService.loggedIn()" routerLinkActive="active" href="http://localhost:3000/desvinculados">Desvinculación Colaboradores</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" *ngIf="_authService.loggedIn()" routerLinkActive="active" href="http://localhost:3000/graficos">Reporte Actual</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" *ngIf="_authService.loggedIn()" routerLinkActive="active" href="http://localhost:3000/anterior">Reportes Anteriores</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" *ngIf="_authService.loggedIn()" routerLinkActive="active" href="http://localhost:4200/userslist">Gestión de Usuarios</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" *ngIf="_authService.loggedIn()" routerLinkActive="active" href="http://localhost:4200/logout">Logout</a>
+            </li>
+            
+            </ul>
+        </div>
+        </nav>

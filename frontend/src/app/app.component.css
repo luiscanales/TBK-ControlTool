@@ -1,0 +1,10 @@
+.navbar .login-btn {
+    position: absolute;
+    top: 0px;
+    right: 15px;
+  }
+  @media (max-width: 767px) {
+    .navbar .login-btn {
+      right: 75px;
+    }
+  }
